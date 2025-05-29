@@ -64,9 +64,9 @@ public class ProductDAOImplementes extends AbstractDAOImpl implements ProductDAO
             s =  conn.createStatement();
 
             rs = s.executeQuery("""
-            SELECT * from auction_house.product p join
+            SELECT * from auction_house.product p left join
             auction_house.auction a on a.auction_id = p.auction_id JOIN auction_house.category
-            c on p.category_id = c.category_id join auction_house.user u on a.user_id = u.user_id""");
+            c on p.category_id = c.category_id left join auction_house.user u on a.user_id = u.user_id""");
 
             while(rs.next()){
                 Product p = new Product();
@@ -81,13 +81,17 @@ public class ProductDAOImplementes extends AbstractDAOImpl implements ProductDAO
 
 
                 Auction a = new Auction();
+                Integer valor = 0;
+                valor = rs.getInt("a.auction_id");
+                if(valor != 0){
+                    a.setAuction_id(rs.getInt("a.auction_id"));
+                    a.setDescription(rs.getString("a.description"));
+                    a.setTitle(rs.getString("a.title"));
+                    a.setStatus(rs.getInt("a.status"));
+                    a.setStart_date(rs.getDate("a.start_date").toLocalDate());
+                    a.setEnd_date(rs.getDate("a.end_date").toLocalDate());
+                }
 
-                a.setAuction_id(rs.getInt("a.auction_id"));
-                a.setDescription(rs.getString("a.description"));
-                a.setTitle(rs.getString("a.title"));
-                a.setStatus(rs.getInt("a.status"));
-                a.setStart_date(rs.getDate("a.start_date").toLocalDate());
-                a.setEnd_date(rs.getDate("a.end_date").toLocalDate());
 
 
                 User user = new User();

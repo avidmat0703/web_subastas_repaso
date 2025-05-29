@@ -56,6 +56,6 @@ public class crearProductoServlet extends HttpServlet {
             productDAOImplementes.create(p);
         }
 
-
+        resp.sendRedirect(req.getContextPath() + "/listarProductos");
     }
 }
