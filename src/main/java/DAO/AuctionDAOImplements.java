@@ -3,10 +3,7 @@ package DAO;
 import model.Auction;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,6 +68,39 @@ public class AuctionDAOImplements extends AbstractDAOImpl implements AuctionDAO{
 
     @Override
     public void update(Auction auction) {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = connectDB();
+
+            ps = conn.prepareStatement("UPDATE auction_house.auction SET " +
+                    "title = ?, user_id = ?," +
+                    " description =?, start_date=?," +
+                    " end_date=?, status=? where auction_id = ?");
+
+            int idx = 1;
+            ps.setString(1, auction.getTitle());
+            ps.setInt(2, auction.getAuction_id());
+            ps.setString(3, auction.getDescription());
+            ps.setDate(4, Date.valueOf(auction.getStart_date()));
+            ps.setDate(5, Date.valueOf(auction.getEnd_date()));
+            ps.setInt(6, auction.getStatus());
+
+            ps.setInt(7, auction.getAuction_id());
+
+            int rows = ps.executeUpdate();
+
+            if (rows == 0)
+                System.out.println("Update de socio con 0 registros actualizados.");
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(conn, ps, rs);
+        }
 
     }
 
