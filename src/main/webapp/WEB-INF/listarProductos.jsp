@@ -67,7 +67,14 @@
             <td><%=p.getAuction_id().getEnd_date() != null ? p.getAuction_id().getEnd_date() : ""%></td>
             <td><%=p.getAuction_id().getUser().getUsername() != null ? p.getAuction_id().getUser().getUsername() : ""%></td>
             <td>
-                <a href="editarProducto?id=?" class="btn btn-sm btn-primary">Editar</a>
+                <%
+                    if(p.getAuction_id().getAuction_id() != null){
+
+                    %>
+                    <a href="editarSubasta?id=<%=p.getAuction_id().getAuction_id()%>">Editar</a>
+                    <%}
+                %>
+
                 <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
             </td>
         </tr>
