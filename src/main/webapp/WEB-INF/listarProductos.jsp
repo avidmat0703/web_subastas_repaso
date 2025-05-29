@@ -64,8 +64,8 @@
             <td><%=p.getStarting_bid()%></td>
             <td><%=p.getCurrent_bid()%></td>
             <td><%=p.getCategory_id().getCategory_id()%></td>
-            <td><%=p.getAuction_id().getEnd_date()%></td>
-            <td><%=p.getAuction_id().getUser().getUsername()%></td>
+            <td><%=p.getAuction_id().getEnd_date() != null ? p.getAuction_id().getEnd_date() : ""%></td>
+            <td><%=p.getAuction_id().getUser().getUsername() != null ? p.getAuction_id().getUser().getUsername() : ""%></td>
             <td>
                 <a href="editarProducto?id=?" class="btn btn-sm btn-primary">Editar</a>
                 <a href="#" class="btn btn-sm btn-danger">Eliminar</a>

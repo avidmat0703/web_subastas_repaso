@@ -76,6 +76,9 @@ public class ProductDAOImplementes extends AbstractDAOImpl implements ProductDAO
                 p.setImg_url(rs.getString("img_url"));
                 p.setStarting_bid(rs.getDouble("starting_bid"));
                 p.setCurrent_bid(rs.getDouble("current_bid"));
+                if(p.getStarting_bid() > p.getCurrent_bid()){
+                    p.setCurrent_bid(p.getStarting_bid());
+                }
                 p.setDescription(rs.getString("description"));
                 p.setClosing_bid(rs.getDouble("closing_bid"));
 
